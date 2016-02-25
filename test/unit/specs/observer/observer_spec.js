@@ -173,6 +173,9 @@ describe('Observer', function () {
   })
 
   it('create on property which is marked not configurable', function () {
+    var previousConvertAllProperties = config.convertAllProperties
+    config.convertAllProperties = true
+
     // on object
     var obj = {}
     Object.defineProperty(obj, 'a', {
@@ -185,6 +188,8 @@ describe('Observer', function () {
     expect(ob instanceof Observer).toBe(true)
     expect(ob.value).toBe(obj)
     expect(obj.__ob__).toBe(ob)
+
+    config.convertAllProperties = previousConvertAllProperties
   })
 
   it('create on array', function () {
